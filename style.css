@@ -11,6 +11,7 @@ button {
 }
 button:hover{
   background-color: #a36363;
+  cursor: pointer;
 }
 textarea {
   display: block;

@@ -1,76 +1,82 @@
 let input = document.createElement("textarea");
 document.body.append(input);
-let option = false;
+let language = 0;
 let shift = false,
   control = false,
-  caps = false;
+  alt = false;
+class key {
+  constructor(className, key, width) {
+    this.className = className;
+    this.width = width;
+    this.key = key;
+  }
+}
 let keys = [
-  { code: "symbol", key: "`ё" },
-  { code: "Digit", key: "1!" },
-  { code: "Digit", key: "2@" },
-  { code: "Digit", key: "3#" },
-  { code: "Digit", key: "4$" },
-  { code: "Digit", key: "5%" },
-  { code: "Digit", key: "6^" },
-  { code: "Digit", key: "7&" },
-  { code: "Digit", key: "8*" },
-  { code: "Digit", key: "9(" },
-  { code: "Digit", key: "0)" },
-  { code: "symbol", key: "-_" },
-  { code: "symbol", key: "=+" },
-  { code: "specialW", key: "BackSpace" },
-  { code: "specialW", key: "Tab" },
-  { code: "Key", key: "qй" },
-  { code: "Key", key: "wц" },
-  { code: "Key", key: "eу" },
-  { code: "Key", key: "rк" },
-  { code: "Key", key: "tе" },
-  { code: "Key", key: "yн" },
-  { code: "Key", key: "uг" },
-  { code: "Key", key: "iш" },
-  { code: "Key", key: "oщ" },
-  { code: "Key", key: "pз" },
-  { code: "Key", key: "[х" },
-  { code: "Key", key: "]ъ" },
-  { code: "symbol", key: "\\" },
-  { code: "specialW", key: "CapsLock" },
-  { code: "Key", key: "aф" },
-  { code: "Key", key: "sы" },
-  { code: "Key", key: "dв" },
-  { code: "Key", key: "fа" },
-  { code: "Key", key: "gп" },
-  { code: "Key", key: "hр" },
-  { code: "Key", key: "jо" },
-  { code: "Key", key: "kл" },
-  { code: "Key", key: "lд" },
-  { code: "symbol", key: ";ж" },
-  { code: "symbol", key: "'э" },
-  { code: "specialW", key: "Enter" },
-  { code: "specialW", key: "Shift" },
-  { code: "Key", key: "zя" },
-  { code: "Key", key: "xч" },
-  { code: "Key", key: "cс" },
-  { code: "Key", key: "vм" },
-  { code: "Key", key: "bи" },
-  { code: "Key", key: "nт" },
-  { code: "Key", key: "mь" },
-  { code: "Key", key: ",б" },
-  { code: "Key", key: ".ю" },
-  { code: "symbol", key: "/." },
-  { code: "special", key: "Del" },
-  { code: "specialW", key: "Shift" },
-  { code: "special", key: "Ctrl" },
-  { code: "special", key: "Win" },
-  { code: "special", key: "Alt" },
-  { code: "specialWW", key: " " },
-  { code: "special", key: "Alt" },
-  { code: "special", key: "Win" },
-  { code: "special", key: "Ctrl" }
+  new key("key", "`~ёЁ", 1),
+  new key("key", "1!1!", 1),
+  new key("key", '2@2"', 1),
+  new key("key", "3#3№", 1),
+  new key("key", "4$4;", 1),
+  new key("key", "5%5%", 1),
+  new key("key", "6^6:", 1),
+  new key("key", "7&7?", 1),
+  new key("key", "8*8*", 1),
+  new key("key", "9(9(", 1),
+  new key("key", "0)0)", 1),
+  new key("key", "-_-_", 1),
+  new key("key", "=+=+", 1),
+  new key("Backspace", "Backspace", 2),
+  new key("Tab", "Tab", 2),
+  new key("key", "qQйЙ", 1),
+  new key("key", "wWцЦ", 1),
+  new key("key", "eEуУ", 1),
+  new key("key", "rRкК", 1),
+  new key("key", "tTеЕ", 1),
+  new key("key", "yYнН", 1),
+  new key("key", "uUгГ", 1),
+  new key("key", "iIшШ", 1),
+  new key("key", "oOщЩ", 1),
+  new key("key", "pPзЗ", 1),
+  new key("key", "[{хХ", 1),
+  new key("key", "]}ъЪ", 1),
+  new key("key", "\\|\\/", 1),
+  new key("CapsLock", "CapsLock", 2),
+  new key("key", "aAфФ", 1),
+  new key("key", "sSыЫ", 1),
+  new key("key", "dDвВ", 1),
+  new key("key", "fFаА", 1),
+  new key("key", "gGпП", 1),
+  new key("key", "hHрР", 1),
+  new key("key", "jJоО", 1),
+  new key("key", "kKлЛ", 1),
+  new key("key", "lLдД", 1),
+  new key("key", ";:жЖ", 1),
+  new key("key", "'\"эЭ", 1),
+  new key("Enter", "Enter", 2),
+  new key("Shift", "Shift", 2),
+  new key("key", "zZяЯ", 1),
+  new key("key", "xXчЧ", 1),
+  new key("key", "cCсС", 1),
+  new key("key", "vVмМ", 1),
+  new key("key", "bBиИ", 1),
+  new key("key", "nNтТ", 1),
+  new key("key", "mMьЬ", 1),
+  new key("key", ",<бБ", 1),
+  new key("key", ".>юЮ", 1),
+  new key("key", "/?.,", 1),
+  new key("Delete", "Del", 1),
+  new key("Shift", "Shift", 2),
+  new key("Control", "Ctrl", 1),
+  new key("Meta", "Win", 1),
+  new key("Alt", "Alt", 1),
+  new key("Space", "Space", 9),
+  new key("Alt", "Alt", 1),
+  new key("Meta", "Win", 1),
+  new key("Control", "Ctrl", 1)
 ];
 createBoard();
 document.addEventListener("keydown", onKeyDown);
-document.addEventListener("keyup", onKeyUp);
-
+let buttons = Array.from(document.getElementsByTagName("button"));
 function createBoard() {
   let keysWrapper = document.createElement("div");
   keysWrapper.className = "keysWrapper";
@@ -80,12 +86,15 @@ function createBoard() {
   let keyboard = new DocumentFragment();
   for (let i = 0; i < keys.length; i++) {
     let button = document.createElement("button");
-    button.className = keys[i].code;
-    if (button.className === "special" || button.className === "specialW") {
+    button.className = keys[i].className;
+    if (keys[i].key === "Space") {
+      button.append(" ");
+    } else if (button.className !== "key") {
       button.append(keys[i].key);
     } else {
-      button.append(keys[i].key[option ? 1 : 0]);
+      button.append(keys[i].key[0]);
     }
+    button.style.gridColumn = "span " + keys[i].width;
     keyboard.append(button);
     button.addEventListener("click", createEvent);
   }
@@ -100,52 +109,54 @@ function createEvent() {
   document.dispatchEvent(myEvent);
 }
 
-let inputStr = "";
 function onKeyDown() {
-  if (event.code !== "special" && event.code !== "specialW") {
-    switch (event.key) {
-      case "Shift":
-        shift = true;
-        caps = !caps;
-        break;
-      case "Control":
-        control = true;
-        break;
-      case "CapsLock":
-        caps = !caps;
-        break;
-      default:
-        inputStr += event.key;
-        input.value = inputStr;
-    }
-  }
-  if (shift && control) {
-    option = !option;
-  }
-  changeKeyboard();
-}
-
-function onKeyUp() {
-  switch (event.key) {
-    case "Shift":
-      shift = false;
-      caps = false;
+  switch (event.code) {
+    case "Space":
+      input.value += " ";
+      break;
+    case "Tab":
+      input.value += "\t";
+      break;
+    case "Enter":
+      input.value += "\n";
+      break;
+    case "Backspace":
+      input.value = input.value.slice(0, input.value.length - 1);
+      break;
+    case "Delete":
+      input.value = "";
       break;
     case "Control":
-      control = false;
+      control = !control;
+      if (!(alt ^ control)) {
+        language = language === 0 ? 2 : 0;
+        changeKeyboard();
+      }
       break;
+    case "CapsLock":
+    case "Shift":
+      shift = !shift;
+      changeKeyboard();
+      break;
+    case "Alt":
+      alt = !alt;
+      if (!(alt ^ control)) {
+        language = language === 0 ? 2 : 0;
+        changeKeyboard();
+      }
+      break;
+    case "Meta":
+      break;
+    default:
+      input.value += event.key;
   }
-  changeKeyboard();
 }
 
 function changeKeyboard() {
   let buttons = document.getElementsByTagName("button");
   for (let i = 0; i < buttons.length; i++) {
-    if (keys[i].code === "Key") {
-      buttons[i].textContent =
-        caps || shift
-          ? keys[i].key[option ? 1 : 0].toUpperCase()
-          : keys[i].key[option ? 1 : 0];
+    if (keys[i].className === "key") {
+      buttons[i].textContent = keys[i].key[language + shift];
     }
   }
 }
