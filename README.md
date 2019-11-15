@@ -1,1 +1,1 @@
-# [codejam-virtual-keyboard](https://evannetta.github.io/codejam-virtual-keyboard/)
+codejam-virtual-keyboard
